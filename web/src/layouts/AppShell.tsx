@@ -19,7 +19,7 @@ function ModePill() {
         <span className="font-medium">{label}</span>
       </div>
       <div className="mt-1 text-muted">
-        {mode === 'edge' ? 'Running the engine locally — works offline on site.' : 'Streaming the authoritative world.'} Copilot: {engine === 'claude' ? 'Claude' : 'local intent engine'}.
+        {mode === 'edge' ? 'Running the engine locally — works offline on site.' : 'Streaming the authoritative world.'} Copilot: {engine === 'ai' ? 'AI model' : 'local intent engine'}.
       </div>
     </div>
   );

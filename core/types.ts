@@ -316,5 +316,5 @@ export interface CopilotAction {
 export interface CopilotReply {
   reply: string;
   actions: CopilotAction[];
-  engine: 'claude' | 'local';
+  engine: 'ai' | 'local';
 }

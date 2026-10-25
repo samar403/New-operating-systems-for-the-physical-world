@@ -359,7 +359,7 @@ export default function Landing() {
           <div className="grid gap-4 lg:grid-cols-3">
             {[
               { name: 'Pilot', price: '$0', unit: '30 days · 1 site', feats: ['Up to 25 agents', 'Edge mode + field app', 'Local Copilot', 'Guided onboarding'], cta: 'Start a pilot' },
-              { name: 'Site', price: '$1,500', unit: 'per site / month + $40 per machine', feats: ['Unlimited crew', 'Claude-powered Copilot', 'Predictive maintenance', 'Safety layer & audit log', 'API & webhooks'], cta: 'Talk to us', featured: true },
+              { name: 'Site', price: '$1,500', unit: 'per site / month + $40 per machine', feats: ['Unlimited crew', 'AI Copilot (LLM)', 'Predictive maintenance', 'Safety layer & audit log', 'API & webhooks'], cta: 'Talk to us', featured: true },
               { name: 'Network', price: 'Custom', unit: 'portfolios & enterprises', feats: ['Cross-site dispatch', 'SSO / SCIM', 'On-prem edge gateways', 'Custom robot adapters', 'Dedicated success team'], cta: 'Contact sales' },
             ].map((p) => (
               <div key={p.name} className={cx('card viewfinder flex flex-col p-6', p.featured && 'ring-1 ring-accent/60')}>

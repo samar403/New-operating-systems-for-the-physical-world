@@ -1,7 +1,7 @@
 /**
- * Claude-powered Copilot. Enabled when ANTHROPIC_API_KEY (or another
- * Anthropic credential) is configured on the server. Claude reads a compact
- * view of the world and operates it through the same commands the UI uses —
+ * LLM-powered Copilot. Enabled when ANTHROPIC_API_KEY (or another Anthropic
+ * credential) is configured on the server. The model reads a compact view of
+ * the world and operates it through the same commands the UI uses —
  * so every action stays validated by the engine and lands in the audit log.
  */
 import Anthropic from '@anthropic-ai/sdk';
@@ -20,7 +20,7 @@ import {
 
 const MODEL = process.env.STRATA_MODEL ?? 'claude-opus-5-5';
 
-export const claudeEnabled = () => Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
+export const aiEnabled = () => Boolean(process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_AUTH_TOKEN);
 
 let client: Anthropic | null = null;
 const getClient = () => (client ??= new Anthropic());
@@ -165,7 +165,7 @@ function liveState(world: World, siteId?: string) {
   return { clock: clockLabel(world.clock), policy: world.policy, kpis: kpis(world), agents, orders, assets, incidents };
 }
 
-export async function runClaudeCopilot(world: World, input: string, ctx: { siteId?: string }): Promise<CopilotReply> {
+export async function runAiCopilot(world: World, input: string, ctx: { siteId?: string }): Promise<CopilotReply> {
   const actions: CopilotAction[] = [];
   const messages: Anthropic.Beta.BetaMessageParam[] = [
     {
@@ -197,7 +197,7 @@ export async function runClaudeCopilot(world: World, input: string, ctx: { siteI
         .map((b) => b.text)
         .join('\n')
         .trim();
-      return { reply: text || 'Done.', actions, engine: 'claude' };
+      return { reply: text || 'Done.', actions, engine: 'ai' };
     }
 
     messages.push({ role: 'assistant', content: response.content });
@@ -221,5 +221,5 @@ export async function runClaudeCopilot(world: World, input: string, ctx: { siteI
     });
     messages.push({ role: 'user', content: results });
   }
-  return { reply: 'I took the actions above but ran out of steps to summarise — check the event log.', actions, engine: 'claude' };
+  return { reply: 'I took the actions above but ran out of steps to summarise — check the event log.', actions, engine: 'ai' };
 }

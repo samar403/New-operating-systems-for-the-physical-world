@@ -11,7 +11,7 @@
                                              │ same Command / Snapshot types
 ┌────────────────────────── server (Hono on Node) ─────────────────────────┐
 │  GET  /api/health   GET /api/state   GET /api/stream (SSE, 2 Hz)          │
-│  POST /api/command  POST /api/copilot  (Claude tool use → local fallback) │
+│  POST /api/command  POST /api/copilot  (LLM tool use → local fallback)    │
 │  serves dist/ in production                                               │
 └────────────────────────────────────────────┬─────────────────────────────┘
                                              │
@@ -77,10 +77,10 @@ Commands and Copilot run against whichever world is active.
 
 ## Copilot
 
-`POST /api/copilot` uses Claude when `ANTHROPIC_API_KEY` is set
-(`server/claude.ts`): the system prompt carries a cached catalog of sites, zones,
+`POST /api/copilot` uses an LLM when `ANTHROPIC_API_KEY` is set
+(`server/ai-copilot.ts`): the system prompt carries a cached catalog of sites, zones,
 templates and assets; tools mirror the engine's commands plus a
-`get_live_state` reader. Every tool call goes through `applyCommand`, so Claude
+`get_live_state` reader. Every tool call goes through `applyCommand`, so the model
 can never bypass the engine's validation. On any failure — or with no key — the
 deterministic `runLocalCopilot` (`core/copilot.ts`) answers instead.
 

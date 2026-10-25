@@ -8,7 +8,7 @@
 
 Inspired by the Y Combinator Request for Startups theme *"New operating systems for the physical world: software that coordinates workers, robots and AI in construction, maintenance and fleets."*
 
-`React 19` · `TypeScript` · `Tailwind v4` · `Vite` · `Hono` · `Server-Sent Events` · `Claude (optional)` · `Vitest`
+`React 19` · `TypeScript` · `Tailwind v4` · `Vite` · `Hono` · `Server-Sent Events` · `LLM Copilot (optional)` · `Vitest`
 
 </div>
 
@@ -40,7 +40,7 @@ Every construction site, hospital campus and logistics yard is turning into a **
 | **Shift Tape** | Swimlane timeline of who did what and when, including travel and projected finish. |
 | **Assets** | Predictive maintenance. Health rings, trends and telemetry. Sensors raise work orders on their own. |
 | **Safety** | Proximity interlocks, hazard reports, geofence holds and an incident log with resolve actions. |
-| **Copilot** | Run the site in plain language. Uses Claude tool use when a key is set, otherwise a deterministic local intent engine. Every action comes back with a receipt. |
+| **Copilot** | Run the site in plain language. Uses an LLM with tool use when an API key is set, otherwise a deterministic local intent engine. Every action comes back with a receipt. |
 | **Field App** | The crew's phone view: one job at a time, the next hand-off, a big *Mark step done* button, and a hazard button wired to the machines. |
 | **⌘K** | One bar to jump anywhere or tell Copilot what to do. `g` + key shortcuts for every page. |
 
@@ -106,14 +106,14 @@ Open <http://localhost:5173>. Press **⌘K / Ctrl+K** and try:
 - `Optimise for safety`
 - `Give me the shift brief`
 
-### Claude-powered Copilot (optional)
+### LLM-powered Copilot (optional)
 
 ```bash
 cp .env.example .env    # then set ANTHROPIC_API_KEY
 ANTHROPIC_API_KEY=sk-ant-... npm run dev:server
 ```
 
-With a key set, `/api/copilot` uses Claude with typed tools that mirror the engine's commands. Every call still goes through the engine's validation. Without a key, or if a call fails, the local intent engine answers.
+With a key set, `/api/copilot` uses an LLM with typed tools that mirror the engine's commands. Every call still goes through the engine's validation. Without a key, or if a call fails, the local intent engine answers.
 
 ## Scripts
 
@@ -134,7 +134,7 @@ With a key set, `/api/copilot` uses Claude with typed tools that mirror the engi
 
 ```
 core/      Pure domain engine: types, seed world, templates, dispatcher, tick loop, insights, local Copilot (+ tests)
-server/    Hono API: SSE stream, commands, Claude Copilot, static hosting in production
+server/    Hono API: SSE stream, commands, LLM Copilot, static hosting in production
 web/       React app: landing page, app shell, ⌘K, Site Twin, pages, design tokens
 docs/      Product brief/prompt, architecture, screenshots
 ```

@@ -9,7 +9,7 @@ import { Hono } from 'hono';
 import { streamSSE } from 'hono/streaming';
 import { existsSync, readFileSync } from 'node:fs';
 import { applyCommand, createWorld, runLocalCopilot, snapshot, step, type Command, type Snapshot } from '../core/index';
-import { claudeEnabled, runClaudeCopilot } from './claude';
+import { aiEnabled, runAiCopilot } from './ai-copilot';
 
 const PORT = Number(process.env.PORT ?? 8787);
 const TICK_MS = 500;
@@ -26,7 +26,7 @@ setInterval(() => {
 
 const app = new Hono();
 
-app.get('/api/health', (c) => c.json({ ok: true, name: 'strata', tick: world.tick, copilot: claudeEnabled() ? 'claude' : 'local' }));
+app.get('/api/health', (c) => c.json({ ok: true, name: 'strata', tick: world.tick, copilot: aiEnabled() ? 'ai' : 'local' }));
 
 app.get('/api/state', (c) => c.json(latest));
 
@@ -61,13 +61,13 @@ app.post('/api/command', async (c) => {
 app.post('/api/copilot', async (c) => {
   const body = (await c.req.json().catch(() => ({}))) as { text?: string; siteId?: string };
   const text = (body.text ?? '').slice(0, 1000);
-  if (claudeEnabled()) {
+  if (aiEnabled()) {
     try {
-      const reply = await runClaudeCopilot(world, text, { siteId: body.siteId });
+      const reply = await runAiCopilot(world, text, { siteId: body.siteId });
       latest = snapshot(world);
       return c.json(reply);
     } catch (err) {
-      console.warn('[copilot] Claude unavailable, using local engine:', err instanceof Error ? err.message : err);
+      console.warn('[copilot] AI model unavailable, using local engine:', err instanceof Error ? err.message : err);
     }
   }
   const reply = runLocalCopilot(world, text, { siteId: body.siteId });
@@ -82,5 +82,5 @@ if (process.env.NODE_ENV === 'production' && existsSync('./dist/index.html')) {
 }
 
 serve({ fetch: app.fetch, port: PORT }, (info) => {
-  console.log(`▲ Strata API on http://localhost:${info.port}  ·  copilot: ${claudeEnabled() ? 'Claude' : 'local intent engine'}`);
+  console.log(`▲ Strata API on http://localhost:${info.port}  ·  copilot: ${aiEnabled() ? 'AI model' : 'local intent engine'}`);
 });

@@ -53,7 +53,7 @@ export default function Copilot() {
                 ) : (
                   <div className="max-w-[88%] space-y-2">
                     <div className="flex items-center gap-2 text-[11px] text-muted">
-                      <Sparkles className="size-3 text-accent" /> Copilot {m.reply && <span className="mono rounded bg-text/5 px-1">{m.reply.engine === 'claude' ? 'claude' : 'local'}</span>}
+                      <Sparkles className="size-3 text-accent" /> Copilot {m.reply && <span className="mono rounded bg-text/5 px-1">{m.reply.engine === 'ai' ? 'ai' : 'local'}</span>}
                     </div>
                     <div className="rounded-2xl rounded-tl-md border border-line bg-raised px-4 py-3 text-[14px] leading-relaxed whitespace-pre-line">
                       {m.pending ? <span className="mono blink text-[12px] text-muted">thinking through constraints…</span> : m.text}
@@ -108,13 +108,13 @@ export default function Copilot() {
         <Card title="Engine">
           <div className="text-[13px]">
             <div className="flex items-center gap-2 font-medium">
-              <span className={cx('size-2 rounded-full', engine === 'claude' ? 'bg-ai' : 'bg-warn')} />
-              {engine === 'claude' ? 'Claude (server)' : 'Local intent engine'}
+              <span className={cx('size-2 rounded-full', engine === 'ai' ? 'bg-ai' : 'bg-warn')} />
+              {engine === 'ai' ? 'AI model (server)' : 'Local intent engine'}
             </div>
             <p className="mt-1.5 text-muted">
-              {engine === 'claude'
-                ? 'Claude reads a compact view of the world and acts through typed tools that mirror the UI commands.'
-                : 'Deterministic, offline-capable parser. Set ANTHROPIC_API_KEY on the server to upgrade Copilot to Claude with tool use.'}
+              {engine === 'ai'
+                ? 'The model reads a compact view of the world and acts through typed tools that mirror the UI commands.'
+                : 'Deterministic, offline-capable parser. Add an API key on the server to upgrade Copilot to an LLM with tool use.'}
             </p>
           </div>
         </Card>

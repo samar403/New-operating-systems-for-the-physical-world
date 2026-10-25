@@ -43,7 +43,7 @@ an engineer, an investor, or an AI coding agent.
 > 4. *Plain-language control.* A Copilot turns "send a drone to inspect the east
 >    wing facade asap" or "pause robots in the crane zone" into validated
 >    commands — the same commands the UI issues, with the same audit trail.
->    Use Claude with tool use when an API key is present; fall back to a
+>    Use an LLM with tool use when an API key is present; fall back to a
 >    deterministic local intent engine otherwise.
 > 5. *Predictive.* Assets stream health telemetry; when health crosses a
 >    threshold, an AI agent raises the work order itself.

@@ -3,7 +3,7 @@
  *
  * It turns operator phrasing ("send a drone to inspect the east wing asap",
  * "pause robots in the crane zone") into world commands. It runs everywhere,
- * needs no network, and is the fallback when the Claude-powered copilot is not
+ * needs no network, and is the fallback when the server's AI copilot is not
  * configured on the server.
  */
 import { applyCommand } from './engine';

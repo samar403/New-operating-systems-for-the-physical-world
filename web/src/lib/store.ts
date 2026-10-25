@@ -38,7 +38,7 @@ export interface Toast {
 interface State {
   snap: Snapshot | null;
   mode: Mode;
-  copilotEngine: 'claude' | 'local';
+  copilotEngine: 'ai' | 'local';
   siteId: string;
   selectedAgentId: string | null;
   selectedWoId: string | null;
@@ -160,7 +160,7 @@ async function startLive(): Promise<boolean> {
     const res = await fetch('/api/health', { signal: ctrl.signal });
     clearTimeout(timer);
     if (!res.ok) return false;
-    const health = (await res.json()) as { ok: boolean; copilot: 'claude' | 'local' };
+    const health = (await res.json()) as { ok: boolean; copilot: 'ai' | 'local' };
     if (!health.ok) return false;
     useStrata.setState({ copilotEngine: health.copilot });
   } catch {

@@ -11,7 +11,7 @@ const INTEGRATIONS = [
   { name: 'Samsara / Geotab', kind: 'Vehicle telematics', status: 'Planned' },
   { name: 'BACnet / Modbus', kind: 'Building & asset telemetry', status: 'Planned' },
   { name: 'Maximo / UpKeep', kind: 'CMMS work orders', status: 'Planned' },
-  { name: 'Claude', kind: 'Copilot reasoning (optional)', status: 'Built in' },
+  { name: 'LLM Copilot', kind: 'Natural-language operations (optional)', status: 'Built in' },
 ];
 
 const FACTOR_LABEL: Record<string, string> = {
