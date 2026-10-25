@@ -1,0 +1,241 @@
+@import 'tailwindcss';
+
+/*
+ * Strata design tokens — "Night shift" (dark, default) and "Day shift" (light).
+ * Built on a universal SaaS starter token set, re-tuned for the field:
+ * hi-vis safety orange as the action colour, a chartreuse "signal" for live
+ * machine state, and one colour per agent kind used consistently everywhere.
+ */
+:root {
+  --bg: #0b0c0b;
+  --bg-2: #0f110f;
+  --surface: #131513;
+  --raised: #191c19;
+  --line: rgb(255 255 255 / 0.075);
+  --line-strong: rgb(255 255 255 / 0.14);
+  --text: #eceee9;
+  --muted: #8d938e;
+  --faint: #5b615c;
+  --accent: #ff6a13;
+  --accent-ink: #1a0b02;
+  --signal: #d4ff3a;
+  --danger: #ff4d4f;
+  --warn: #ffb020;
+  --ok: #3ddc97;
+  --grid: rgb(255 255 255 / 0.035);
+  --k-human: #ff8a3d;
+  --k-robot: #c6f432;
+  --k-drone: #4cc9f0;
+  --k-vehicle: #b197fc;
+  --k-ai: #f783ac;
+  --zone-work: rgb(255 255 255 / 0.03);
+  --zone-restricted: rgb(255 77 79 / 0.07);
+  --zone-charging: rgb(212 255 58 / 0.06);
+  --zone-staging: rgb(177 151 252 / 0.06);
+  --zone-office: rgb(76 201 240 / 0.05);
+  --shadow: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 20px 40px -24px rgb(0 0 0 / 0.8);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f2f0e9;
+  --bg-2: #ebe8df;
+  --surface: #fbfaf6;
+  --raised: #ffffff;
+  --line: rgb(20 22 20 / 0.09);
+  --line-strong: rgb(20 22 20 / 0.18);
+  --text: #141614;
+  --muted: #5e645f;
+  --faint: #9a9f9a;
+  --accent: #e5560a;
+  --accent-ink: #fff7f0;
+  --signal: #5f8a00;
+  --danger: #d92d2f;
+  --warn: #b7791f;
+  --ok: #128a5a;
+  --grid: rgb(20 22 20 / 0.045);
+  --k-human: #e2620e;
+  --k-robot: #5f8a00;
+  --k-drone: #0b8fb8;
+  --k-vehicle: #6d4fd8;
+  --k-ai: #c4306a;
+  --zone-work: rgb(20 22 20 / 0.025);
+  --zone-restricted: rgb(217 45 47 / 0.07);
+  --zone-charging: rgb(95 138 0 / 0.08);
+  --zone-staging: rgb(109 79 216 / 0.06);
+  --zone-office: rgb(11 143 184 / 0.06);
+  --shadow: 0 1px 2px rgb(20 22 20 / 0.05), 0 16px 32px -24px rgb(20 22 20 / 0.35);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-signal: var(--signal);
+  --color-danger: var(--danger);
+  --color-warn: var(--warn);
+  --color-ok: var(--ok);
+  --color-human: var(--k-human);
+  --color-robot: var(--k-robot);
+  --color-drone: var(--k-drone);
+  --color-vehicle: var(--k-vehicle);
+  --color-ai: var(--k-ai);
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+/* Survey-grid backdrop */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Viewfinder corners — Strata's signature card treatment */
+.viewfinder {
+  position: relative;
+}
+.viewfinder::before,
+.viewfinder::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  border-color: var(--line-strong);
+}
+.viewfinder::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+  border-top-left-radius: 4px;
+}
+.viewfinder::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+  border-bottom-right-radius: 4px;
+}
+
+.hazard-tape {
+  background-image: repeating-linear-gradient(-45deg, var(--accent) 0 8px, transparent 8px 16px);
+}
+.hazard-tape-danger {
+  background-image: repeating-linear-gradient(-45deg, var(--danger) 0 6px, transparent 6px 12px);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'zero', 'tnum';
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+.scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 1.8s cubic-bezier(0.2, 0.6, 0.2, 1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+.blink {
+  animation: blink 1.2s steps(2, start) infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.rise {
+  animation: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring,
+  .blink,
+  .marquee,
+  .rise {
+    animation: none !important;
+  }
+  * {
+    transition-duration: 0ms !important;
+  }
+}

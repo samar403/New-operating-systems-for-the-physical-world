@@ -1,0 +1,5 @@
+{
+  "buildCommand": "VITE_STRATA_MODE=edge npx vite build",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
